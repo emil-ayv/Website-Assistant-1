@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <style>
+    /* CSS Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Global Styles */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      background: linear-gradient(to right, #f2f2f2, #e6e6e6);
+      padding: 20px;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    header img {
+      width: 150px; /* Adjust logo size */
+      position: absolute;
+      left: 20px; /* Position logo */
+      top: 50%;
+      transform: translateY(-50%); /* Center logo vertically */
+    }
+
+    header h1 {
+      font-size: 32px; /* Increase header font size */
+      margin-bottom: 10px; /* Add spacing below header */
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin: 0 15px; /* Increase spacing between nav links */
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    nav ul li a:hover {
+      color: #ff9900;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Search Bar Styles */
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0; /* Move search bar down */
+    }
+
+    .search-bar input {
+      padding: 12px;
+      border: none;
+      border-radius: 20px 0 0 20px;
+      width: 400px;
+      font-size: 16px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar button {
+      background-color: #ff9900;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      cursor: pointer;
+      border-radius: 0 20px 20px 0;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar button:hover {
+      background-color: #e68a00;
+    }
+
+    /* Category Navigation Styles */
+    .category-nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .category-nav a {
+      color: #333;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      transition: background-color 0.3s, color 0.3s;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+
+    .category-nav a:hover {
+      background-color: #ff9900;
+      color: #fff;
+    }
+
+    .category-nav a.active {
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* Main Content Styles */
+    main {
+      padding: 40px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .product {
+      background-color: #fff;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+      margin: 15px;
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transform: scale(1.02);
+    }
+
+    .product img {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      transition: transform 0.4s ease;
+    }
+
+    .product img:hover {
+      transform: scale(1.1);
+    }
+
+    .product h3 {
+      margin: 10px 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .product p {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .product .price {
+      font-weight: bold;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .product .rating {
+      margin-top: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+    }
+
+    .product .rating i {
+      margin: 0 2px;
+    }
+
+    .product button {
+      background-color: #ff9900;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: background 0.3s, transform 0.3s;
+      font-size: 14px;
+      margin-top: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product button:hover {
+      background-color: #e68a00;
+      transform: scale(1.05);
+    }
+
+    .product button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 300%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(-50%) translateY(-100%);
+      transition: transform 0.5s;
+      border-radius: 20px;
+    }
+
+    .product button:hover::after {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .product {
+        width: 100%;
+      }
+    }
+
+    /* Badge Styles */
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #ffcc00;
+      color: #333;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .prime-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #00a8e1;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .product:hover .badge, .product:hover .prime-badge {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://via.placeholder.com/150x50?text=Logo" alt="Shop Logo"> <!-- Logo -->
+    <h1>Online Shop</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Deals</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search for products...">
+    <button>Search</button>
+  </div>
+
+  <div class="category-nav">
+    <a href="#" class="active">All</a>
+    <a href="#">Electronics</a>
+    <a href="#">Fashion</a>
+    <a href="#">Home</a>
+    <a href="#">Books</a>
+    <a href="#">Sports</a>
+  </div>
+
+  <main>
+    <!-- Product Cards -->
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDF8fGVsZWN0cm9uaWN8ZW58MHx8fHwxNjY4MTY3OTY1&ixlib=rb-1.2.1&q=80&w=400" alt="Product 1">
+      <div class="badge">Best Seller</div>
+      <div class="prime-badge">Prime</div>
+      <h3>Product 1</h3>
+      <p>High-quality product description goes here.</p>
+      <p class="price">$29.99</p>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDF8fGZhc2hpb258ZW58MHx8fHwxNjY4MTY3OTY1&ixlib=rb-1.2.1&q=80&w=400" alt="Product 2">
+      <div class="badge">Best Seller</div>
+      <div class="prime-badge">Prime</div>
+      <h3>Product 2</h3>
+      <p>High-quality product description goes here.</p>
+      <p class="price">$39.99</p>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDR8fGZ1cm5pdHVyZXxlbnwwfHx8fDE2NjgxNjc5NjU&ixlib=rb-1.2.1&q=80&w=400" alt="Product 3">
+      <div class="badge">Best Seller</div>
+      <div class="prime-badge">Prime</div>
+      <h3>Product 3</h3>
+      <p>High-quality product description goes here.</p>
+      <p class="price">$49.99</p>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1514516870924-6d9b9d7c0c3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDE1fHxlZWxlY3Ryb25pY3xlbnwwfHx8fDE2NjgxNjc5NjU&ixlib=rb-1.2.1&q=80&w=400" alt="Product 4">
+      <div class="badge">Best Seller</div>
+      <div class="prime-badge">Prime</div>
+      <h3>Product 4</h3>
+      <p>High-quality product description goes here.</p>
+      <p class="price">$59.99</p>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <button>Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDF8fGJvb2t8ZW58MHx8fHwxNjY4MTY3OTY1&ixlib=rb-1.2.1&q=80&w=400" alt="Product 5">
+      <div class="badge">Best Seller</div>
+      <div class="prime-badge">Prime</div>
+      <h3>Product 5</h3>
+      <p>High-quality product description goes here.</p>
+      <p class="price">$19.99</p>
+      <div class="rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+      <button>Add to Cart</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Online Shop. All rights reserved.</p>
+  </footer>
+
+
+  <script type="text/javascript">
+      (function(d, t) {
+          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          v.onload = function() {
+            window.voiceflow.chat.load({
+              verify: { projectID: '66a48970a923dde8693c2a4b' },
+              url: 'https://general-runtime.voiceflow.com',
+              versionID: 'production'
+            });
+          }
+          v.src = "https://cdn.voiceflow.com/widget/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+      })(document, 'script');
+  </script>
+</body>
+</html>
