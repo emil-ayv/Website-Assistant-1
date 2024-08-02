@@ -15,22 +15,22 @@ def create_assistant(client, knowledge_path):
         file = client.files.create(file=open(knowledge_path, "rb"),
                                    purpose='assistants')
 
-    assistant = client.beta.assistants.create(
-        name="Test-Assistant",
-        instructions="""
-          You will answer on question from your knowledge.
-          """,
-        model="gpt-4-1106-preview",
-        tools=[{
-            "type": "retrieval"
-        }],
-        file_ids=[file.id])
+        assistant = client.beta.assistants.create(
+            name="Test-Assistant",
+            instructions="""
+              You will answer on question from your knowledge.
+              """,
+            model="gpt-4-1106-preview",
+            tools=[{
+                "type": "retrieval"
+            }],
+            file_ids=[file.id])
 
-    with open(assistant_file_path, 'w') as file:
-        json.dump({'assistant_id': assistant.id}, file)
-        print("➡️➡️➡️ Created a new assistant and saved the ID. ⬅️⬅️⬅️")
+        with open(assistant_file_path, 'w') as file:
+            json.dump({'assistant_id': assistant.id}, file)
+            print("➡️➡️➡️ Created a new assistant and saved the ID. ⬅️⬅️⬅️")
 
-    assistant_id = assistant.id
+        assistant_id = assistant.id
 
     return assistant_id
 
